@@ -1,0 +1,16 @@
+// install-browsers.js
+require('dotenv').config();
+
+import { execSync } from 'child_process';
+
+const browsersPath = process.env.PLAYWRIGHT_BROWSERS_PATH;
+
+if (!browsersPath) {
+  console.error('❌ PLAYWRIGHT_BROWSERS_PATH is not set in the .env file');
+  process.exit(1);
+}
+
+console.log(`📦 Installing Playwright browsers to: ${browsersPath}`);
+
+process.env.PLAYWRIGHT_BROWSERS_PATH = browsersPath;
+execSync('npx playwright install', { stdio: 'inherit' });
