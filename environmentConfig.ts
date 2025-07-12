@@ -1,5 +1,6 @@
 // config/environmentConfig.ts
-import { TEST_ENV, DB_PASSWORD } from './env';
+import * as dotenv from 'dotenv';
+dotenv.config(); 
 
 interface EnvConfig {
   name: string;
@@ -12,28 +13,30 @@ interface EnvConfig {
 const environments: Record<string, EnvConfig> = {
   REG: {
     name: 'REG',
-    baseUrl: 'https://reg.yoursite.com',
-    dbServer: 'reg-db.server.com',
-    dbUser: 'reg_user',
-    dbPassword: DB_PASSWORD,
+    baseUrl: 'https://automationexercise.com/',
+    dbServer: 'localhost',
+    dbUser: process.env.DB_USER || '',
+    dbPassword: process.env.DB_PASSWORD || '',
   },
+
   QA: {
     name: 'QA',
     baseUrl: 'https://qa.yoursite.com',
     dbServer: 'qa-db.server.com',
-    dbUser: 'qa_user',
-    dbPassword: DB_PASSWORD,
+    dbUser: process.env.DB_USER || '',
+    dbPassword: process.env.DB_PASSWORD || '',
   },
+
   STAGE: {
     name: 'STAGE',
     baseUrl: 'https://stage.yoursite.com',
     dbServer: 'stage-db.server.com',
-    dbUser: 'stage_user',
-    dbPassword: DB_PASSWORD,
+    dbUser: process.env.DB_USER || '',
+    dbPassword: process.env.DB_PASSWORD || '',
   },
 };
 
-const selectedEnv = TEST_ENV.toUpperCase();
-const currentConfig = environments[selectedEnv] || environments['REG'];
+const selectedEnv = (process.env.TEST_ENV || 'REG').toUpperCase();
+const currentConfig = environments[selectedEnv];
 
 export default currentConfig;
