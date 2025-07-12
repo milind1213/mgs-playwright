@@ -1,5 +1,5 @@
 import { request } from "@playwright/test";
-import { API_ENDPOINTS } from '../../constants/apiEndpoints'
+import { API_ENDPOINTS } from '../../../constants/apiEndpoints'
 
 export async function loginAndGetToken(baseURL, username, password) {
   const requestContext = await request.newContext();

@@ -1,4 +1,4 @@
-import { getDataArray } from '../../utils/dbUtils';
+import { getDataArray } from '../../../utils/dbUtils';
 
 export async function getBrands() {
   return await getDataArray('SELECT * FROM brands');
