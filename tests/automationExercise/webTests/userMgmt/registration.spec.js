@@ -1,5 +1,5 @@
-const { test, expect } = require('@playwright/test');
-const { LoginSignupPage } = require('../../../../pages/automationExercise/User/LoginSignUpPage');
+import { test, expect } from '@playwright/test';
+import { LoginSignupPage } from '../../../../pages/automationExercise/User/LoginSignUpPage';
 
 test.describe.serial('User Registration Tests', () => {
     test('Should register a new user successfully', async ({ page }) => {

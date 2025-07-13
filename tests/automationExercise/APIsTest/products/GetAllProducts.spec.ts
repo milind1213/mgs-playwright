@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import config from '../../../../environmentConfig';
+import config from '../../../../configEnvirment';
 import EndPoints from '../../../../constants/apiEndpoints';
 
 test('API 1: Get All Products List - should return 200 and product list', async ({ request }) => {

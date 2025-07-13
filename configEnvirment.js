@@ -1,5 +1,5 @@
 // config/environmentConfig.ts
-require('dotenv').config();
+import 'dotenv/config';
 
 const environments = {
   REG: {
@@ -28,4 +28,4 @@ const environments = {
 const selectedEnv = (process.env.TEST_ENV || 'REG').toUpperCase();
 const currentConfig = environments[selectedEnv];
 
-module.exports = currentConfig;
+export default currentConfig;

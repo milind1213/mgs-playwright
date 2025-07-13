@@ -1,10 +1,11 @@
-import { NavigationPage } from "../Common/HomePage"
-const MENU = require('../../../constants/menuNames');
-const config = require("../../../environmentConfig");
+import { NavigationPage } from "../Common/HomePage.js";
+import {MENU } from '../../../constants/menuNames.js';
+import config from "../../../configEnvirment.js";
 
-exports.LoginSignupPage = class LoginSignupPage {
+export class LoginSignupPage {
   constructor(page) {
     this.page = page;
+
     // Login
     this.loginTitleLabel = page.locator('h2', { hasText: 'Login to your account' });
     this.loginEmailTextBox = page.locator('[data-qa="login-email"]');
@@ -12,18 +13,14 @@ exports.LoginSignupPage = class LoginSignupPage {
     this.loginButton = page.locator('[data-qa="login-button"]');
     this.logoutLink = page.locator('a[href="/logout"]');
 
-
-    // Signup
+    //SignUp Locators
     this.signupTitleLabel = page.locator('h2', { hasText: 'New User Signup!' });
     this.signupNameTextBox = page.locator('[data-qa="signup-name"]');
     this.signupEmailTextBox = page.locator('[data-qa="signup-email"]');
     this.signupButton = page.locator('[data-qa="signup-button"]');
     this.successSignUpMessage = page.locator('h2[data-qa="account-created"]');
-    // Separator
     this.orLabel = page.locator('h2.or');
     this.errorMessageLocator = page.locator('p:has-text("Your email or password is incorrect!")');
-
-    //SignUp Locators
     this.titleMrRadio = page.locator('input#id_gender1');
     this.titleMrsRadio = page.locator('input#id_gender2');
     this.nameInput = page.locator('input[data-qa="name"]');
@@ -112,7 +109,6 @@ exports.LoginSignupPage = class LoginSignupPage {
 
       await this.successSignUpMessage.waitFor({ state: 'visible', timeout: 10000 });
       console.log("User registration completed.");
-
     } catch (error) {
       console.error("Registration failed:", error.message);
       throw error;
@@ -135,5 +131,4 @@ exports.LoginSignupPage = class LoginSignupPage {
       throw error;
     }
   }
-
 }

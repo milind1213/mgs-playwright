@@ -1,4 +1,4 @@
-module.exports = {
+export const MENU = {
   HOME: 'home',
   PRODUCTS: 'products',
   CART: 'cart',
