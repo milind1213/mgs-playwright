@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { LoginSignupPage } from '../../../../pages/automationExercise/User/LoginSignUpPage';
+import { POMDashboard } from '../../../../pages/automationExercise/POMDashboard';
 
 test.describe.serial('User Registration Tests', () => {
     test('Should register a new user successfully', async ({ page }) => {
-        const loginSignupPage = new LoginSignupPage(page);
-        const uniqueEmail = `testuser_${Date.now()}@example.com`; 
+       const dashboard = new POMDashboard(page);
+       const uniqueEmail = `testuser_${Date.now()}@example.com`; 
         
         const userDetails = {
             name: 'Test User',
@@ -21,9 +21,9 @@ test.describe.serial('User Registration Tests', () => {
             mobileNumber: '1234567890'
         };
 
-        await loginSignupPage.register(page, userDetails);
-        await expect(loginSignupPage.successSignUpMessage).toBeVisible();
-        await expect(loginSignupPage.successSignUpMessage).toHaveText('Account Created!');
+        await dashboard.getLoginSignupPage().register(page, userDetails);
+        await expect(dashboard.getLoginSignupPage().successSignUpMessage).toBeVisible();
+        await expect(dashboard.getLoginSignupPage().successSignUpMessage).toHaveText('Account Created!');
     });
 });
 

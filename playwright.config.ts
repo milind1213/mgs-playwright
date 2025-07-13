@@ -4,49 +4,51 @@ dotenv.config();
 
 export default defineConfig({
   testDir: './tests',
+  // ⏱ Global timeout per test (60 seconds)
+  timeout: 60 * 1000, 
+  globalTimeout: 120 * 1000, // ⏱ Global timeout for all tests
+  expect: {
+    // ⏱ Max wait for expect conditions
+    timeout: 50 * 1000, 
+  },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  // Retry failed tests in CI
+  retries: process.env.CI ? 2 : 1, 
   workers: process.env.CI ? 1 : undefined,
-  reporter: 'html',
+
+  reporter: [
+    ['html', { open: 'never' }],
+    ['list'], 
+  ],
+
   use: {
+    baseURL: process.env.BASE_URL || 'https://automationexercise.com',
+    // ⏱ Max time for single action
+    actionTimeout: 10 * 1000, 
+    navigationTimeout: 30 * 1000, 
     trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    headless: true,
+    ignoreHTTPSErrors: true,
+    viewport: { width: 1280, height: 720 },
   },
 
   projects: [
     {
-      name: 'chromium',
+      name: 'Chromium',
       use: { ...devices['Desktop Chrome'] },
     },
-
     {
-      name: 'firefox',
+      name: 'Firefox',
       use: { ...devices['Desktop Firefox'] },
     },
-
     {
-      name: 'webkit',
+      name: 'WebKit',
       use: { ...devices['Desktop Safari'] },
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
   ],
+
+  outputDir: 'test-results/', // Stores traces, videos, etc.
 });

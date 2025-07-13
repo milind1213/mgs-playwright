@@ -1,4 +1,4 @@
-import { getDataArray , getFirstRow } from '../../../utils/dbUtils.js';
+import { getDataArray, getFirstRow, getData } from '../../../utils/dbUtils.js';
 
 export async function getBrands() {
   return await getDataArray('SELECT * FROM brands');
@@ -23,3 +23,5 @@ export async function getProduct() {
 export async function getUser() {
   return await getFirstRow('SELECT id, user_name AS name, email FROM users LIMIT 1');
 }
+
+export { getData };

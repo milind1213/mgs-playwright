@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
 const browsersPath = process.env.PLAYWRIGHT_BROWSERS_PATH;
 

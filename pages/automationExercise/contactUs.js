@@ -1,4 +1,4 @@
-exports.ContactUsPage = class ContactUsPage {
+export class ContactUsPage {
   constructor(page) {
     this.page = page;
     // Labels
@@ -26,4 +26,4 @@ exports.ContactUsPage = class ContactUsPage {
     }
     await this.submitButton.click();
   }
-};
+}

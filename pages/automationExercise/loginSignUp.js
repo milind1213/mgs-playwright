@@ -1,18 +1,16 @@
-import { NavigationPage } from "../Common/HomePage.js";
-import {MENU} from '../../../config/constants.js';
-import config from "../../../config/configEnvirment.js";
+import { NavigationPage } from "./HomePage.js";
+import {MENU} from '../../config/constants.js';
+import config from "../../config/configEnvirment.js";
 
 export class LoginSignupPage {
   constructor(page) {
     this.page = page;
-
     // Login
     this.loginTitleLabel = page.locator('h2', { hasText: 'Login to your account' });
     this.loginEmailTextBox = page.locator('[data-qa="login-email"]');
     this.loginPasswordTextBox = page.locator('[data-qa="login-password"]');
     this.loginButton = page.locator('[data-qa="login-button"]');
     this.logoutLink = page.locator('a[href="/logout"]');
-
     //SignUp Locators
     this.signupTitleLabel = page.locator('h2', { hasText: 'New User Signup!' });
     this.signupNameTextBox = page.locator('[data-qa="signup-name"]');
