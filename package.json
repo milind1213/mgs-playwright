@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "install:browsers": "node install-browsers.js",
-    "test": "npx playwright test",
-    "test:headed": "npx playwright test --headed"
+    "test": "npx playwright test ./tests/automationExercise/webTests/userMgmt/login.spec.js --headed --project=chromium  --retries=0"
   },
   "keywords": [],
   "author": "",

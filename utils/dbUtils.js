@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise';
-import config from '../environmentConfig';
+import config from '../config/configEnvirment.js';
 
 const getDbConfig = () => ({
   host: config.dbServer,

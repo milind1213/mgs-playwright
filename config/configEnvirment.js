@@ -1,4 +1,4 @@
-// config/environmentConfig.ts
+// confignvEnvironment.js
 import 'dotenv/config';
 
 const environments = {

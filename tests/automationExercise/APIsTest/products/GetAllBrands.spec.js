@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
-import config from '../../../../configEnvirment';
-import EndPoints from '../../../../constants/apiEndpoints';
+import config from '../../../../config/configEnvirment';
+import { END_POINTS } from '../../../../config/constants';
 
 test('API 3: Get All Brands List - should return 200 and brands list', async ({ request }) => {
-  const apiUrl = `${config.baseUrl}${EndPoints.BRANDS_LIST}`;
+  const apiUrl = `${config.baseUrl}${END_POINTS.BRANDS_LIST}`;
   
   const response = await request.get(apiUrl);
   expect(response.status()).toBe(200);
@@ -17,5 +17,5 @@ test('API 3: Get All Brands List - should return 200 and brands list', async ({ 
 
   const firstBrand = responseBody.brands[0];
   expect(firstBrand).toHaveProperty('id');
-  expect(firstBrand).toHaveProperty('brand');  // <-- changed from 'brand_name' to 'brand'
+  expect(firstBrand).toHaveProperty('brand');
 });

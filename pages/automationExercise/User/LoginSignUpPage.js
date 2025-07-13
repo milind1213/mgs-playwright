@@ -1,6 +1,6 @@
 import { NavigationPage } from "../Common/HomePage.js";
-import {MENU } from '../../../constants/menuNames.js';
-import config from "../../../configEnvirment.js";
+import {MENU} from '../../../config/constants.js';
+import config from "../../../config/configEnvirment.js";
 
 export class LoginSignupPage {
   constructor(page) {

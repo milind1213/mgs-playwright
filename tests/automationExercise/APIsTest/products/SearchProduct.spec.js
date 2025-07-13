@@ -1,10 +1,10 @@
 import { test, expect } from '@playwright/test';
-import config from '../../../../configEnvirment';
-import EndPoints from '../../../../constants/apiEndpoints';
+import config from '../../../../config/configEnvirment';
+import { END_POINTS } from '../../../../config/constants';
 
 
 test('API 7: POST Verify Login with valid details - should return 200 and success message', async ({ request }) => {
-    const apiUrl = `${config.baseUrl}${EndPoints.VERIFY_LOGIN}`;
+    const apiUrl = `${config.baseUrl}${END_POINTS.VERIFY_LOGIN}`;
 
     const requestBody = {
         email: 'mgs@g.com',
