@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import config from '../../../../config/configEnvirment';
-import { END_POINTS } from '../../../../config/constants';
+import config from '../../../config/configEnvirment';
+import { END_POINTS } from '../../../config/constants';
 
 test('API 1: Get All Products List - should return 200 and product list', async ({ request }) => {
   const apiUrl = `${config.baseUrl}${END_POINTS.PRODUCTS_LIST}`;

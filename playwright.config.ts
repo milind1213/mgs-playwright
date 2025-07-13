@@ -50,5 +50,5 @@ export default defineConfig({
     },
   ],
 
-  outputDir: 'test-results/', // Stores traces, videos, etc.
+  outputDir: 'test-results/', 
 });

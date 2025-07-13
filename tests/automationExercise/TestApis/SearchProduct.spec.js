@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import config from '../../../../config/configEnvirment';
-import { END_POINTS } from '../../../../config/constants';
+import config from '../../../config/configEnvirment';
+import { END_POINTS } from '../../../config/constants';
 
 
 test('API 7: POST Verify Login with valid details - should return 200 and success message', async ({ request }) => {

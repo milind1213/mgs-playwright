@@ -1,6 +1,7 @@
 import { NavigationPage } from "./HomePage.js";
 import {MENU} from '../../config/constants.js';
 import config from "../../config/configEnvirment.js";
+import {log} from "../../utils/logger.js"
 
 export class LoginSignupPage {
   constructor(page) {
@@ -45,27 +46,24 @@ export class LoginSignupPage {
   async login(page, userDetails) {
     const navigationPage = new NavigationPage(page);
     try {
-      console.log("Launching application at:", config.baseUrl);
+      log(`Launching Application at: ${config.baseUrl}`);
       await page.goto(config.baseUrl);
-
-      console.log("Navigating to:", MENU.LOGIN);
       await navigationPage.navigateTo(MENU.LOGIN);
-
       if (!userDetails.email || !userDetails.password) {
         throw new Error("Email or Password is missing in userDetails.");
       }
 
-      console.log("Filling in login credentials...");
-      console.log("Email:", userDetails.email);
+      log("Filling in login credentials...");
+      log(`Entering Email: ${userDetails.email}`);
       await this.loginEmailTextBox.fill(userDetails.email);
 
-      console.log("Password: ********");
+      log(`Entering Password: ********`); 
       await this.loginPasswordTextBox.fill(userDetails.password);
 
-      console.log("Clicking Login button...");
+      log("Clicking Login button...");
       await this.loginButton.click();
     } catch (error) {
-      console.error("Login failed with error:", error.message);
+      log(`Login failed with error: ${error.message}`);
       throw error;
     }
   }
@@ -74,18 +72,18 @@ export class LoginSignupPage {
     const navigationPage = new NavigationPage(page);
 
     try {
-      console.log("Launching application for registration at:", config.baseUrl);
+      log(`Launching application for registration at: ${config.baseUrl}`);
       await page.goto(config.baseUrl, { waitUntil: 'domcontentloaded' });
 
-      console.log("Navigating to:", MENU.LOGIN);
+      log(`Navigating to: ${MENU.LOGIN}`);
       await navigationPage.navigateTo(MENU.LOGIN);
 
-      console.log("Filling Signup Name and Email...");
+      log(`Filling Signup Name and Email...`);
       await this.signupNameTextBox.fill(userDetails.name);
       await this.signupEmailTextBox.fill(userDetails.email);
       await this.signupButton.click();
 
-      console.log("Filling user details for account creation...");
+      log(`Filling user details for account creation...`);
       if (userDetails.title?.toLowerCase() === 'mr') {
         await this.titleMrRadio.check();
       } else if (userDetails.title?.toLowerCase() === 'mrs') {
@@ -102,13 +100,13 @@ export class LoginSignupPage {
       await this.zipcodeInput.fill(userDetails.zipcode);
       await this.mobileNumberInput.fill(userDetails.mobileNumber);
 
-      console.log("Submitting registration form...");
+      log(`Submitting registration form...`);
       await this.createAccountButton.click();
 
       await this.successSignUpMessage.waitFor({ state: 'visible', timeout: 10000 });
-      console.log("User registration completed.");
+      log(`User registration completed.`);
     } catch (error) {
-      console.error("Registration failed:", error.message);
+      log(`Registration failed: ${error.message}`);
       throw error;
     }
   }
@@ -119,13 +117,13 @@ export class LoginSignupPage {
       const isErrorVisible = await this.errorMessageLocator.isVisible({ timeout: 5000 });
 
       if (isErrorVisible) {
-        console.warn("Login failed. Proceeding with registration...");
+        log(`Login failed. Proceeding with registration...`);
         await this.register(page, userDetails);
       } else {
-        console.log("Login successful.");
+        log(`Login successful.`);
       }
     } catch (error) {
-      console.error("Login or registration process failed:", error.message);
+      log(`Login or registration process failed: ${error.message}`);
       throw error;
     }
   }

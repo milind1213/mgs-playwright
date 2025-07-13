@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { POMDashboard } from '../../../../pages/automationExercise/POMDashboard';
+import { POMDashboard } from '../../../pages/automationExercise/POMDashboard';
 
 test.describe.serial('User Registration Tests', () => {
     test('Should register a new user successfully', async ({ page }) => {

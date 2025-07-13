@@ -1,3 +1,5 @@
+import { log } from '../../utils/logger';
+
 export class NavigationPage {
   constructor(page) {
     this.page = page;
@@ -22,9 +24,9 @@ export class NavigationPage {
   async navigateTo(menuName) {
     const locator = this.menulinks[menuName.toLowerCase()];
     if (!locator) {
-      throw new Error(`Menu "${menuName}" not found in navigation.`);
+      throw new log(`Menu "${menuName}" not found in navigation.`);
     }
-    console.log(`Navigating to menu: ${menuName}`);
+    log(`Navigating to menu: ${menuName}`);
     await locator.click();
   }
 }

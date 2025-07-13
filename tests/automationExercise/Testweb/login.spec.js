@@ -1,5 +1,6 @@
 import { test, expect }  from'@playwright/test';
-import { POMDashboard } from '../../../../pages/automationExercise/POMDashboard';
+import { POMDashboard } from '../../../pages/automationExercise/POMDashboard';
+import { log } from '../../../utils/logger';
 
 
 test.describe.serial('Login Tests', () => {
@@ -11,6 +12,9 @@ test.describe.serial('Login Tests', () => {
         };
         await dashboard.getLoginSignupPage().login(page, userDetails);
         await expect(dashboard.getLoginSignupPage().logoutLink).toBeVisible();
+        await expect(dashboard.getLoginSignupPage().logoutLink).toHaveText('Logout');
+        log(`User logged in successfully with email: ${userDetails.email}`);
+
     });
 
     test('Should show error for invalid credentials', async ({ page }) => {
@@ -22,5 +26,7 @@ test.describe.serial('Login Tests', () => {
 
         await dashboard.getLoginSignupPage().login(page, invalidUser);
         await expect(dashboard.getLoginSignupPage().errorMessageLocator).toBeVisible();
+        await expect(dashboard.getLoginSignupPage().errorMessageLocator).toHaveText('Your email or password is incorrect!');
+        log(`Login failed for email: ${invalidUser.email}`);
     });
 });
