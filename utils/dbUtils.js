@@ -34,3 +34,8 @@ export async function getData(sqlQuery) {
   const firstKey = Object.keys(firstRow)[0];
   return String(firstRow[firstKey] || '');
 }
+
+export async function getFirstRow(sqlQuery) {
+  const rows = await executeQuery(sqlQuery);
+  return rows.length ? rows[0] : {};
+}
