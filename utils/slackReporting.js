@@ -1,13 +1,12 @@
-const { WebClient } = require('@slack/web-api');
-const fs = require('fs');
-const path = require('path');
+import { WebClient } from '@slack/web-api';
+import fs from 'fs';
+import path from 'path';
 
 let slackClient;
 
-// Initialize Slack WebClient
-async function initialize(slackToken, channelId) {
+export async function initialize(slackToken, channelId) {
   if (!slackToken || !channelId) {
-    throw new Error('Slack token or channel ID is missing. Please check environment variables.');
+    throw new Error('Slack token or channel ID is missing.');
   }
   try {
     slackClient = new WebClient(slackToken);
@@ -15,15 +14,14 @@ async function initialize(slackToken, channelId) {
     if (!response.ok) {
       throw new Error(`Failed to verify Slack channel: ${response.error}`);
     }
-    console.log('Slack client initialized successfully.');
+    console.log('✅ Slack client initialized.');
   } catch (error) {
-    console.error(`Error initializing Slack client: ${error.message || error}`);
+    console.error('❌ Error initializing Slack client:', error.message || error);
     throw error;
   }
 }
 
-// Send HTML report to Slack
-async function sendExecutionReportToSlack(reportPath, reportHeader, slackChannelId, slackToken) {
+export async function sendExecutionReportToSlack(reportPath, reportHeader, slackChannelId, slackToken) {
   const client = new WebClient(slackToken);
   const filePath = path.resolve(reportPath);
 
@@ -45,7 +43,7 @@ async function sendExecutionReportToSlack(reportPath, reportHeader, slackChannel
   if (!fileExists) return;
 
   try {
-    console.log('Sending report to Slack...');
+    console.log('📤 Uploading report to Slack...');
     const fileStream = fs.createReadStream(filePath);
 
     const response = await client.files.uploadV2({
@@ -55,18 +53,19 @@ async function sendExecutionReportToSlack(reportPath, reportHeader, slackChannel
       filename: path.basename(filePath),
     });
 
-    if (response.files && response.files.length > 0 && response.files[0].id) {
-      console.log('Report sent successfully:', response.files[0].id);
-      console.log('File URL:', response.files[0].permalink_public || 'No public link');
+    if (
+      response.ok &&
+      response.files &&
+      response.files.length > 0 &&
+      response.files[0].id
+    ) {
+      console.log('✅ Report uploaded successfully to Slack!');
+      console.log('📎 File ID:', response.files[0].id);
+      console.log('🔗 File URL:', response.files[0].permalink_public || 'No public link available');
     } else {
-      console.error('Failed to upload the report to Slack:', response);
+      console.error('❌ Upload failed. Slack API response:', JSON.stringify(response, null, 2));
     }
   } catch (error) {
-    console.error('Error uploading file to Slack:', error.message || error);
+    console.error('❌ Error uploading file to Slack:', error.message || error);
   }
 }
-
-module.exports = {
-  initialize,
-  sendExecutionReportToSlack,
-};

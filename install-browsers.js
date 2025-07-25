@@ -1,10 +1,12 @@
-require('dotenv').config();
+import dotenv from 'dotenv';
 import { execSync } from 'child_process';
+
+dotenv.config();
 
 const browsersPath = process.env.PLAYWRIGHT_BROWSERS_PATH;
 
 if (!browsersPath) {
-  console.error(' PLAYWRIGHT_BROWSERS_PATH is not set in the .env file');
+  console.error('PLAYWRIGHT_BROWSERS_PATH is not set in the .env file');
   process.exit(1);
 }
 
