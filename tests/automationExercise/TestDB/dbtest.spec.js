@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { getBrands, getProducts, getUsers, getData } from '../fixtures/DbFixtures/automationExercise/productsFixture';
+import { getBrands, getProducts, getUsers, getData } from '../../../fixtures/DbFixtures/automationExercise/productsFixture';
 
 test('DB Test - Validate brands table', async () => {
   const brands = await getBrands();
