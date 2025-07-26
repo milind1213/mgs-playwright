@@ -14,9 +14,9 @@ export async function initialize(slackToken, channelId) {
     if (!response.ok) {
       throw new Error(`Failed to verify Slack channel: ${response.error}`);
     }
-    console.log('✅ Slack client initialized.');
+    console.log('Slack client initialized.');
   } catch (error) {
-    console.error('❌ Error initializing Slack client:', error.message || error);
+    console.error('Error initializing Slack client:', error.message || error);
     throw error;
   }
 }
@@ -43,7 +43,7 @@ export async function sendExecutionReportToSlack(reportPath, reportHeader, slack
   if (!fileExists) return;
 
   try {
-    console.log('📤 Uploading report to Slack...');
+    console.log('Uploading report to Slack...');
     const fileStream = fs.createReadStream(filePath);
 
     const response = await client.files.uploadV2({
@@ -59,13 +59,13 @@ export async function sendExecutionReportToSlack(reportPath, reportHeader, slack
       response.files.length > 0 &&
       response.files[0].id
     ) {
-      console.log('✅ Report uploaded successfully to Slack!');
-      console.log('📎 File ID:', response.files[0].id);
-      console.log('🔗 File URL:', response.files[0].permalink_public || 'No public link available');
+      console.log('Report uploaded successfully to Slack!');
+      console.log('File ID:', response.files[0].id);
+      console.log('File URL:', response.files[0].permalink_public || 'No public link available');
     } else {
-      console.error('❌ Upload failed. Slack API response:', JSON.stringify(response, null, 2));
+      console.error('Upload failed. Slack API response:', JSON.stringify(response, null, 2));
     }
   } catch (error) {
-    console.error('❌ Error uploading file to Slack:', error.message || error);
+    console.error('Error uploading file to Slack:', error.message || error);
   }
 }
