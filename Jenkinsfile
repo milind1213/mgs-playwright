@@ -1,28 +1,32 @@
 pipeline {
-  agent any
-
-  environment {
-    PLAYWRIGHT_IMAGE = 'mcr.microsoft.com/playwright:v1.44.1-jammy'
-    PLAYWRIGHT_BROWSERS_PATH = './custom-browsers'
-  }
-
-  stages {
-    stage('Install & Test') {
-      steps {
-        script {
-          docker.image(env.PLAYWRIGHT_IMAGE).inside('-u root') {
-            sh 'npm install'
-            sh 'node install-browsers.js'
-            sh 'npm run test'
-          }
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright:v1.44.1-jammy'
         }
-      }
     }
-  }
-
-  post {
-    always {
-      archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+    environment {
+        PLAYWRIGHT_BROWSERS_PATH = './ms-playwright'
     }
-  }
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm ci'
+            }
+        }
+        stage('Install Browsers') {
+            steps {
+                sh 'npx playwright install'
+            }
+        }
+        stage('Run Tests') {
+            steps {
+                sh 'npx playwright test'
+            }
+        }
+    }
+    post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/**', allowEmptyArchive: true
+        }
+    }
 }
